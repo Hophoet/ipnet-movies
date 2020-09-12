@@ -43,10 +43,12 @@
 										<li>
 											<span>Genre:</span> 
 											{% for genre in movie.genres %}
-											<a href="#">{{ genre.title }}</a>
+												<a href="#">{{ genre.title }}</a>
+											{% else %}
+												<a href="#"> No genre</a>
 											{% endfor %}
 										</li>
-									<li><span>Release year:</span>.</li>
+									<li><span>Release date: </span>{{releaseDate}}</li>
 										<li><span>Running time:</span> {{movie.runningTime}} min</li>
 									</ul>
 
@@ -122,8 +124,8 @@
 											<li class="comments__item">
 												<div class="comments__autor">
 													<img class="comments__avatar" src="img/user.png" alt="">
-													<span class="comments__name">John Doe</span>
-													<span class="comments__time">30.08.2018, 17:53</span>
+													<span class="comments__name">{{ comment.user }}</span>
+													<span class="comments__time">{{ comment.date.format('Y-m-d')}}</span>
 												</div>
 												<p class="comments__text">{{comment.content }}.</p>
 												<div class="comments__actions">
@@ -146,9 +148,9 @@
 											{% endfor %}
 										</ul>
 
-										<form action="#" class="form">
-											<textarea id="text" name="text" class="form__textarea" placeholder="Add comment"></textarea>
-											<button type="button" class="form__btn">Send</button>
+										<form method="POST" action="{{ path('movie', {'id':movie.id}) }}" class="form">
+											<textarea id="comment" required name="comment" class="form__textarea" placeholder="Add comment"></textarea>
+											<button type="submit" class="form__btn">comment</button>
 										</form>
 									</div>
 								</div>

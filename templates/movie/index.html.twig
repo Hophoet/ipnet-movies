@@ -16,7 +16,7 @@
 			<div class="row">
 				
 				<div class="col-12">
-					<h1 class="home__title"><b>NEW ITEMS</b> OF THIS SEASON</h1>
+					<h1 class="home__title"><b>POPULAR</b> MOVIES</h1>
 
 					<button class="home__nav home__nav--prev" type="button">
 						<i class="icon ion-ios-arrow-round-back"></i>
@@ -34,7 +34,12 @@
 							<!-- card -->
 							<div class="card card--big">
 								<div class="card__cover">
-									<img src="{{ asset('assets/img/covers/cover.jpg') }}" alt="">
+									{% if movie.image %}
+										<img src="{{ '/movies/' ~ movie.image }}" alt="{{movie.title}}">
+									{% else %}
+										<img src="{{ asset('assets/img/covers/cover.jpg') }}" alt="{{movie.title}}">
+									{% endif %}
+									
 									<a href="{{ path('movie', {'id':movie.id}) }}" class="card__play">
 										<i class="icon ion-ios-play"></i>
 									</a>

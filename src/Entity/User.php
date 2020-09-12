@@ -23,11 +23,11 @@ class User extends BaseUser
      */
     private $comments;
  public function __construct()
-                      {
-                      parent::__construct();
-                      // your own logic
-                      $this->comments = new ArrayCollection();
-                      }
+                         {
+                         parent::__construct();
+                         // your own logic
+                         $this->comments = new ArrayCollection();
+                         }
 
     /**
      * @return Collection|Comment[]
@@ -58,5 +58,10 @@ class User extends BaseUser
         }
 
         return $this;
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 }
