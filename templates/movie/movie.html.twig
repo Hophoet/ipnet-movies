@@ -1,0 +1,173 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+
+	<!-- details -->
+	<section class="section details">
+		<!-- details background -->
+		<div class="details__bg" data-bg="{{ asset('assets/img/home/home__bg.jpg') }}"></div>
+		<!-- end details background -->
+
+		<!-- details content -->
+		<div class="container">
+			<div class="row">
+				<!-- title -->
+				<div class="col-12">
+					<h1 class="details__title">{{ movie.title }}</h1>
+				</div>
+				<!-- end title -->
+
+				<!-- content -->
+				<div class="col-12 col-xl-6">
+					<div class="card card--details">
+						<div class="row">
+							<!-- card cover -->
+							<div class="col-12 col-sm-4 col-md-4 col-lg-3 col-xl-5">
+								<div class="card__cover">
+									<img src="{{ asset('assets/img/covers/cover.jpg') }}" alt="">
+								</div>
+							</div>
+							<!-- end card cover -->
+
+							<!-- card content -->
+							<div class="col-12 col-sm-8 col-md-8 col-lg-9 col-xl-7">
+								<div class="card__content">
+									<div class="card__wrap">
+										<span class="card__rate"><i class="icon ion-ios-star"></i>{{ movie.voteAverage }}</span>
+
+								
+									</div>
+
+									<ul class="card__meta">
+										<li>
+											<span>Genre:</span> 
+											{% for genre in movie.genres %}
+											<a href="#">{{ genre.title }}</a>
+											{% endfor %}
+										</li>
+									<li><span>Release year:</span>.</li>
+										<li><span>Running time:</span> {{movie.runningTime}} min</li>
+									</ul>
+
+									<div class="card__description card__description--details">
+										{{movie.description}}
+									</div>
+								</div>
+							</div>
+							<!-- end card content -->
+						</div>
+					</div>
+				</div>
+				<!-- end content -->
+
+			</div>
+		</div>
+		<!-- end details content -->
+	</section>
+	<!-- end details -->
+
+	<!-- content -->
+	<section class="content">
+		<div class="content__head">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<!-- content title -->
+						<h2 class="content__title"></h2>
+						<!-- end content title -->
+
+						<!-- content tabs nav -->
+						<ul class="nav nav-tabs content__tabs" id="content__tabs" role="tablist">
+							<li class="nav-item">
+								<a class="nav-link active" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true">Comments</a>
+							</li>
+
+						</ul>
+						<!-- end content tabs nav -->
+
+						<!-- content mobile tabs nav -->
+						<div class="content__mobile-tabs" id="content__mobile-tabs">
+							<div class="content__mobile-tabs-btn dropdown-toggle" role="navigation" id="mobile-tabs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<input type="button" value="Comments">
+								<span></span>
+							</div>
+
+							<div class="content__mobile-tabs-menu dropdown-menu" aria-labelledby="mobile-tabs">
+								<ul class="nav nav-tabs" role="tablist">
+									<li class="nav-item"><a class="nav-link active" id="1-tab" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true">Comments</a></li>
+
+
+								</ul>
+							</div>
+						</div>
+						<!-- end content mobile tabs nav -->
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-lg-8 col-xl-8">
+					<!-- content tabs -->
+					<div class="tab-content" id="myTabContent">
+						<div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="1-tab">
+							<div class="row">
+								<!-- comments -->
+								<div class="col-12">
+									<div class="comments">
+										<ul class="comments__list">
+											{% for comment in movie.comments %}
+											<li class="comments__item">
+												<div class="comments__autor">
+													<img class="comments__avatar" src="img/user.png" alt="">
+													<span class="comments__name">John Doe</span>
+													<span class="comments__time">30.08.2018, 17:53</span>
+												</div>
+												<p class="comments__text">{{comment.content }}.</p>
+												<div class="comments__actions">
+													<div class="comments__rate">
+														<button type="button"><i class="icon ion-md-thumbs-up"></i>{{comment.likeNumber }}</button>
+
+														<button type="button">{{comment.dislikeNumber }}<i class="icon ion-md-thumbs-down"></i></button>
+													</div>
+												</div>
+											</li>
+											{% else %}
+											<li class="comments__item">
+												<div class="comments__autor">
+													<img class="comments__avatar" src="img/user.png" alt="">
+													<span class="comments__name">No comment</span>
+												</div>
+												
+												
+											</li>
+											{% endfor %}
+										</ul>
+
+										<form action="#" class="form">
+											<textarea id="text" name="text" class="form__textarea" placeholder="Add comment"></textarea>
+											<button type="button" class="form__btn">Send</button>
+										</form>
+									</div>
+								</div>
+								<!-- end comments -->
+							</div>
+						</div>
+
+					
+					</div>
+					<!-- end content tabs -->
+				</div>
+
+				<!-- sidebar -->
+			
+				<!-- end sidebar -->
+
+			</div>
+		</div>
+	</section>
+	<!-- end content -->
+
+{% endblock %}

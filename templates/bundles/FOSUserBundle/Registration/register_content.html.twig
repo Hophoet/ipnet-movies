@@ -1,0 +1,36 @@
+{% extends 'authbase.html.twig' %}
+{% block content %}
+{% trans_default_domain 'FOSUserBundle' %}
+  <!-- 
+{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+ {{ form_widget(form) }}
+    <div>
+        <input type="submit" value="{{ 'registration.submit'|trans }}" />
+    </div>
+-->
+    <form class="sign__form" name="fos_user_registration_form" method="post" action="/register/" >
+
+            <div class="sign__group">
+                <input  class="sign__input" placeholder="Email" type="email" id="fos_user_registration_form_email" name="fos_user_registration_form[email]" required="required">
+            </div>
+            <div class="sign__group">
+                <input  class="sign__input" placeholder="Username" type="text" id="fos_user_registration_form_username" name="fos_user_registration_form[username]" required="required" maxlength="180" pattern=".{2,}">
+            </div>
+            <div class="sign__group">
+                <input  class="sign__input" placeholder="Password" type="password" id="fos_user_registration_form_plainPassword_first" name="fos_user_registration_form[plainPassword][first]" required="required" autocomplete="new-password">
+            </div>
+            <div class="sign__group">
+                <input  class="sign__input" placeholder="Confirmation" type="password" id="fos_user_registration_form_plainPassword_second" name="fos_user_registration_form[plainPassword][second]" required="required" autocomplete="new-password">
+            </div class="sign__group">
+            <input type="hidden" id="fos_user_registration_form__token" name="fos_user_registration_form[_token]" value="L64oYsln6mLskmzMLZNxmZ_iYRgxvonplGFM3YFONvs">
+            </div>
+            <button class="sign__btn" type="submit" value="Register">submit</button>
+            <div class="sign_group">
+
+            </div>
+    </form>
+      <!-- 
+{{ form_end(form) }}
+      -->
+
+{% endblock %}

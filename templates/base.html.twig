@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600%7CUbuntu:300,400,500,700" rel="stylesheet">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap-reboot.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap-grid.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/jquery.mCustomScrollbar.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/nouislider.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/ionicons.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/plyr.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/photoswipe.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/default-skin.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+
+	<!-- Favicons -->
+	<link rel="icon" type="image/png" href="{{ asset('assets/icon/favicon-32x32.png') }}" sizes="32x32">
+	<link rel="apple-touch-icon" href="{{ asset('assets/icon/eeeeefavicon-32x32.png') }}">
+	<link rel="apple-touch-icon" sizes="72x72" href="{{ asset('assets/icon/apple-touch-icon-72x72.png') }}">
+	<link rel="apple-touch-icon" sizes="114x114" href="{{ asset('assets/icon/apple-touch-icon-114x114.png') }}">
+	<link rel="apple-touch-icon" sizes="144x144" href="{{ asset('assets/icon/apple-touch-icon-144x144.png') }}">
+
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="Dmitry Volkov">
+	<title>Movie</title>
+
+</head>
+<body class="body">
+	<!-- header -->
+	<header class="header">
+		<div class="header__;wrap">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="header__content">
+							<!-- header logo -->
+							<a href="index.html" class="header__logo">
+								<img src="img/logo.svg" alt="">
+							</a>
+							<!-- end header logo -->
+
+							<!-- header nav -->
+							<ul class="header__nav">
+								<!-- dropdown -->
+								<li class="header__nav-item">
+									<a class="dropdown-toggle header__nav-link" href="{{ path('movies')}}" role="button" >Home</a>
+
+								</li>
+								<!-- end dropdown -->
+
+								<!-- dropdown -->
+						
+								<!-- end dropdown -->
+
+
+								<!-- dropdown -->
+								<li class="dropdown header__nav-item">
+									<a  class="dropdown-toggle header__nav-link" href="{{ path('movies')}}" role="button"><i class="icon ion-ios-more"></i></a>
+
+									<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuMore">
+										<li><a href="#">About</a></li>
+										
+									</ul>
+								</li>
+								<!-- end dropdown -->
+							</ul>
+							<!-- end header nav -->
+
+							<!-- header auth -->
+							<div class="header__auth">
+								<button class="header__search-btn" type="button">
+									<i class="icon ion-ios-search"></i>
+								</button>
+
+								<a href="signin.html" class="header__sign-in">
+									<i class="icon ion-ios-log-in"></i>
+									<span>sign in</span>
+								</a>
+							</div>
+							<!-- end header auth -->
+
+							<!-- header menu btn -->
+							<button class="header__btn" type="button">
+								<span></span>
+								<span></span>
+								<span></span>
+							</button>
+							<!-- end header menu btn -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- header search -->
+		<form action="#" class="header__search">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="header__search-content">
+							<input type="text" placeholder="Search for a movie, TV Series that you are looking for">
+
+							<button type="button">search</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		<!-- end header search -->
+	</header>
+	<!-- end header -->
+
+	{% block content %}
+
+	{% endblock %}
+
+
+	<!-- footer -->
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
+		
+
+				<!-- footer copyright -->
+				<div class="col-12">
+					<div class="footer__copyright">
+						<small><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></small>
+
+						<ul>
+							<li><a href="#">Terms of Use</a></li>
+							<li><a href="#">Privacy Policy</a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- end footer copyright -->
+			</div>
+		</div>
+	</footer>
+	<!-- end footer -->
+
+	<!-- JS -->
+	<script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
+	<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+	<script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
+	<script src="{{ asset('assets/js/jquery.mousewheel.min.js') }}"></script>
+	<script src="{{ asset('assets/js/jquery.mCustomScrollbar.min.js') }}"></script>
+	<script src="{{ asset('assets/js/wNumb.js') }}"></script>
+	<script src="{{ asset('assets/js/nouislider.min.js') }}"></script>
+	<script src="{{ asset('assets/js/plyr.min.js') }}"></script>
+	<script src="{{ asset('assets/js/jquery.morelines.min.js') }}"></script>
+	<script src="{{ asset('assets/js/photoswipe.min.js') }}"></script>
+	<script src="{{ asset('assets/js/photoswipe-ui-default.min.js') }}"></script>
+	<script src="{{ asset('assets/js/main.js') }}"></script>
+</body>
+
+</html>
