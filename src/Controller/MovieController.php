@@ -44,7 +44,7 @@ class MovieController extends AbstractController
         //ge the movie
         $movie = $this->getDoctrine()->getRepository('App:Movie')->find($id);
         if($movie == null){
-            return $this->redirectToRoute('404');
+            return $this->render('movie/404.html.twig', []);
         }
         //get current user
         $user = $this->getUser();
@@ -94,11 +94,27 @@ class MovieController extends AbstractController
     }
 
     /**
-     * @Route("/movieNotFound/", name="404")
+     * @Route("/searchMovies/", name="searchMovies")
      */
-    public function MovieNotFoundError( Request $request)
+    public function searchMovies( Request $request)
     {
+        $query = $request->request->get('query');
+        if($query){
+            $searchMovies =  $this->getDoctrine()->getRepository('App:Movie')->findBy(['title'=>$query]);
+            if($searchMovies){
+                return $this->render('movie/search.html.twig', ['searchMovies' => $searchMovies]);
+            }
+            else{
+               //movies not found with the query
+            }
+
+        }
+        else{
+            //query not send 
+        }
 
         return $this->render('movie/404.html.twig', []);
+        
     }
+
 }
