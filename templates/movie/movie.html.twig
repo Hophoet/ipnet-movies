@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-<section class="section section--first section--bg" data-bg="{{ asset('assets/img/section/section.jpg') }}" style="background: url(&quot;img/section/section.jpg&quot;) center center / cover no-repeat;">
+<section  class="section section--first section--bg" data-bg="{{ asset('assets/img/section/section.jpg') }}" style="background: url(&quot;img/section/section.jpg&quot;) center center / cover no-repeat;">
 	<div class="container">
 		<div class="row">
 			<div class="col-6">
@@ -13,7 +13,7 @@
 					<!-- breadcrumb -->
 					<ul class="breadcrumb">
 						<li class="breadcrumb__item"><a href="{{ path('movies') }}">Home</a></li>
-						<li class="breadcrumb__item breadcrumb__item--active"> {{movie.title}}</li>
+						<li id="movie_title" class="breadcrumb__item breadcrumb__item--active"> {{movie.title}}</li>
 					</ul>
 					<!-- end breadcrumb -->
 				</div>
@@ -34,6 +34,7 @@
 				<!-- title -->
 				<div class="col-12">
 					<h1 class="details__title">{{ movie.title }}</h1>
+					<p id="movie_id" hidden>{{movie.id}}</p>
 				</div>
 				<!-- end title -->
 
@@ -60,6 +61,27 @@
 										<span class="card__rate"><i class="icon ion-ios-star"></i>{{ movie.voteAverage }}</span>
 
 								
+									</div>
+									<div class="card__description ">
+										{% if app.user and movie.isLikedByUser(app.user) %}
+											<span class="card__rate">
+												<button  onclick="controlLikes()">
+													<i id="movie_likes_icon_name" class="icon ion-md-heart"></i>
+												</button>
+												<span id="movie_likes" class="card__rate"> {{movie.likes | length }} </span>
+											</span>
+												 <span id="movie_likes_title">i like</span>
+
+										{% else %}
+											<span class="card__rate">
+												<button  onclick="controlLikes()">
+													<i id="movie_likes_icon_name" class="icon ion-md-heart-empty"></i>
+												</button>
+												<span id="movie_likes" class="card__rate"> {{movie.likes | length }} </span>
+											 </span> 
+											 <span id="movie_likes_title">i don't like</span>
+
+										{% endif %}
 									</div>
 
 									<ul class="card__meta">
@@ -146,7 +168,7 @@
 											{% for comment in movie.comments %}
 											<li class="comments__item">
 												<div class="comments__autor">
-													<img class="comments__avatar" src="img/user.png" alt="">
+													<img class="comments__avatar" src="{{ asset('assets/img/user.png') }}" alt="">
 													<span class="comments__name">{{ comment.user }}</span>
 													<span class="comments__time">{{ comment.date.format('Y-m-d')}}</span>
 												</div>
@@ -162,7 +184,7 @@
 											{% else %}
 											<li class="comments__item">
 												<div class="comments__autor">
-													<img class="comments__avatar" src="img/user.png" alt="">
+													<img class="comments__avatar" src="{{ asset('assets/img/user.png') }}" alt="">
 													<span class="comments__name">No comment</span>
 												</div>
 												
@@ -195,4 +217,8 @@
 	</section>
 	<!-- end content -->
 
+{% endblock %}
+
+{% block javascript %}
+	<script src="{{ asset('assets/js/ajax/movie.js') }}"></script>
 {% endblock %}

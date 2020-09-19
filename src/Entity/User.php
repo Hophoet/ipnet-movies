@@ -22,12 +22,18 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="user", orphanRemoval=true)
      */
     private $comments;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Like::class, mappedBy="user")
+     */
+    private $likes;
  public function __construct()
-                         {
-                         parent::__construct();
-                         // your own logic
-                         $this->comments = new ArrayCollection();
-                         }
+                                        {
+                                        parent::__construct();
+                                        // your own logic
+                                        $this->comments = new ArrayCollection();
+                                        $this->likes = new ArrayCollection();
+                                        }
 
     /**
      * @return Collection|Comment[]
@@ -63,5 +69,36 @@ class User extends BaseUser
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return Collection|Like[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Like $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Like $like): self
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getUser() === $this) {
+                $like->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

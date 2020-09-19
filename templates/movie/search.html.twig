@@ -78,14 +78,14 @@
 					<div class="card">
 						<div class="card__cover">
 							{% if movie.image %}
-							<img src="{{ '/movies/' ~ movie.image }}" alt="{{movie.title}}">
-						{% else %}
-							<img src="{{ asset('assets/img/covers/cover.jpg') }}" alt="{{movie.title}}">
-						{% endif %}
-						
-						<a href="{{ path('movie', {'id':movie.id}) }}" class="card__play">
-							<i class="icon ion-ios-play"></i>
-						</a>
+								<img src="{{ '/movies/' ~ movie.image }}" alt="{{movie.title}}">
+							{% else %}
+								<img src="{{ asset('assets/img/covers/cover.jpg') }}" alt="{{movie.title}}">
+							{% endif %}
+							
+							<a href="{{ path('movie', {'id':movie.id}) }}" class="card__play">
+								<i class="icon ion-ios-play"></i>
+							</a>
 						</div>
 						<div class="card__content">
 							<h3 class="card__title"><a href="#">{{ movie.title }}</a></h3>

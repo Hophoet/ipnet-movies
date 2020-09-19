@@ -8,7 +8,7 @@
 <form class="sign__form" action="{{ path("fos_user_security_check") }}" method="post">
     {% if error %} 
         <span class="sign__text">{{ error.messageKey|trans(error.messageData, 'security') }}<a href="signup.html"></a></span>
-        <span></span>
+        <h1></h1>
     {% endif %}
     {% if csrf_token %}
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
@@ -31,6 +31,9 @@
 
     
     <button class="sign__btn" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" >{{ 'security.login.submit'|trans }}</button>
+
+    <span class="sign__text">Don't have an account? <a href="{{ path('fos_user_registration_register') }}">Sign up!</a></span>
+	<span class="sign__text"><a href="{{ path('fos_user_resetting_request') }}">Forgot password?</a></span>
 </form>
 
 {% endblock %}

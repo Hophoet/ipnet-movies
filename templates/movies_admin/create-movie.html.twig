@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+<div class="sign section--bg" data-bg="{{ asset('assets/img/section/section.jpg') }}">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="sign__content">
+                    {{ form_start(form, {'method': 'post', 'action': path('create-movie'), 'attr': {'class': 'sign__form'}}) }}
+                    
+                        {{form_widget(form)}}
+                        <button class="sign__btn" type="submit" id="_submit" name="_submit" value="" >Create</button>
+
+                   {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

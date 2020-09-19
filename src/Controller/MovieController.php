@@ -3,18 +3,27 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Entity\Like;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Movie;
+use App\Form\MovieType;
+use App\Repository\LikeRepository;
 use DateTime;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class MovieController extends AbstractController
 {
     /**
      * @Route("/", name="movies")
      */
-    public function index( Request $request)
+    public function index(Request $request)
     {
         //get all movies
         $movies = $this->getDoctrine()->getRepository('App:Movie')->findAll();
@@ -116,5 +125,115 @@ class MovieController extends AbstractController
         return $this->render('movie/404.html.twig', []);
         
     }
+
+    /**
+     * @Route("/create/", name="create-movie")
+     */
+    public function create(Request $request)
+    {
+        //create a new movie object
+        $movie = new Movie;
+        //building of the form of the movie creation
+        $form = $this->createForm(MovieType::class, $movie);
+
+        $form->handleRequest($request);
+         
+        //
+        if ($form->isSubmitted()){
+            //get post data
+            //building image file name
+            $file = $request->files->get('movie')['image'];
+            $movies_dir = $this->getParameter('movies_dir');
+            $filename  = md5(uniqid()) . '.'. $file->guessExtension();
+            $file->move(
+                $movies_dir,
+                $filename
+            );
+            $post = $request->request;
+            $title =  $form['title']->getData();
+            $description = $form['description']->getData();
+            $voteAverage = $form['voteAverage']->getData();
+            $releaseDate = $form['releaseDate']->getData();
+            $runningTime = $form['runningTime']->getData();
+
+            //set data to the movie object
+            $movie->setImage($filename);
+            $movie->setDescription($description);
+            $movie->setVoteAverage($voteAverage);
+            $movie->setReleaseDate($releaseDate);
+            $movie->setRunningTime($runningTime);
+
+            //echo "<pre>";
+            //var_dump($movie); die;
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($movie);
+            $em->flush();
+            //redirection
+            return $this->redirectToRoute('movies');  
+        }
+
+        return $this->render(
+            'movies_admin/create-movie.html.twig',
+            array('form' => $form->createView() )
+        );
+
+    }
+
+
+    /**
+     * like or unlike movie
+     * 
+     * @Route("/movie/{id}/like", name="movie_like")
+     * @param Movie $movie
+     * @param ObjectManager $manager
+     * @param LikeRepository $likeRepository
+     * @return void
+     */
+    public function movielike(Movie $movie, LikeRepository $likeRepository):
+    HttpFoundationResponse
+    {
+        
+        $manager = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        
+        if(!$user) return $this->json([
+            'code' => 403,
+            'message' => 'Unauthorized'
+        ]);
+
+        if($movie->isLikedByUser($user)){
+            $like = $likeRepository->findOneBy([
+                'movie' => $movie,
+                'user' => $user,
+            ]);
+            $manager->remove($like); 
+            $manager->flush();
+            $isLiked = $movie->isLikedByUser($user);
+            return $this->json([
+                'code' => 200,
+                'message' => 'like remove',
+                'likes' => $likeRepository->count(['movie' => $movie]),
+                'isliked' => false
+            ], 200);
+            
+        }
+
+        $like = new Like;
+        $like->setMovie($movie)
+        ->setUser($user);
+        
+        $isLiked = $movie->isLikedByUser($user);
+        $manager->persist($like);
+        $manager->flush();
+        return $this->json([
+            'code' => 200,
+            'message' => 'Like is add',
+            'likes' => $likeRepository->count(['movie' => $movie]),
+            'isliked' => true
+        ], 200); 
+
+    }
+
+
 
 }

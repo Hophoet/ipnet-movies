@@ -63,14 +63,16 @@ class Movie
     private $comments;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\OneToMany(targetEntity=Like::class, mappedBy="movie")
      */
-    private $updated_at;
+    private $likes;
+
 
     public function __construct()
     {
         $this->genres = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -207,16 +209,50 @@ class Movie
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updated_at;
+    public function isLikeByUser(User $user): bool {
+        return true;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    /**
+     * @return Collection|Like[]
+     */
+    public function getLikes(): Collection
     {
-        $this->updated_at = $updated_at;
+        return $this->likes;
+    }
+
+    public function addLike(Like $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setMovie($this);
+        }
 
         return $this;
+    }
+
+    public function removeLike(Like $like): self
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getMovie() === $this) {
+                $like->setMovie(null);
+            }
+        }
+
+        return $this;
+    }
+    /**
+     * checked if movie is likes by a user
+     *
+     * @return boolean
+     */
+    public  function isLikedByUser(User $user) : bool {
+        foreach($this->likes as $like){
+            if($like->getUser() === $user) return true;
+        }
+        return false;
     }
 
   
