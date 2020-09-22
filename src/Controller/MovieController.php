@@ -65,7 +65,7 @@ class MovieController extends AbstractController
             //user not connected case
             return $this->redirectToRoute('fos_user_security_login');
         }
-        $commentContent = $request->request->get('comment');
+       /* $commentContent = $request->request->get('comment');
         if($commentContent){
             //print_r($comment);
             //print_r($user);
@@ -92,6 +92,7 @@ class MovieController extends AbstractController
         else{
             
         }
+        */
         
         //$methods = get_class_methods($movie->getReleaseDate()) ;
         $releaseDate = $movie->getReleaseDate()->format('Y-m-d');
@@ -233,6 +234,74 @@ class MovieController extends AbstractController
         ], 200); 
 
     }
+
+
+      /**
+     * like or unlike movie
+     * 
+     * @Route("/movie/{id}/comment", name="movie_comment")
+     * @param Movie $movie
+     * @param ObjectManager $manager
+     * @param LikeRepository $likeRepository
+     * @return void
+     */
+    public function movieComment(Request $request,  Movie $movie, LikeRepository $likeRepository):
+    HttpFoundationResponse
+    {
+        
+        $manager = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        if(!$user) return $this->json([
+            'code' => 403,
+            'message' => 'Unauthorized'
+        ]);
+
+        
+        $commentContent = $request->request->get('commentContent');
+
+        if($commentContent){
+            //print_r($comment);
+            //print_r($user);
+            $date = new DateTime();
+            $likeNumber = 0;
+            $dislikeNumber = 0;
+            
+            $comment = new Comment;
+            $comment->setUser($user);
+            $comment->setContent($commentContent);
+            $comment->setDate($date);
+            $comment->setLikeNumber($likeNumber);
+            $comment->setDislikeNumber($dislikeNumber);
+            $comment->setMovie($movie);
+
+            //get manager
+            $manager = $this->getDoctrine()->getManager();
+            //saving in to the database
+            $manager->persist($comment);
+            $manager->flush();
+            return $this->json([
+                'code' => 200,
+                'message' => 'comment added successfully!',
+                'comment' => [
+                    'user' => $user->getUsername(), 
+                    'content' => $commentContent,
+                    'date' => $date->format('Y-m-d'),
+                    'movie' => $movie->getTitle()
+                ]
+            ], 200);
+
+        }
+        else{
+            
+        }
+        return $this->json([
+            'code' => 400,
+            'message' => 'comment',
+            'movie' => $movie->getTitle(),
+            'query' => $request
+        ], 200);
+    }
+
 
 
 
