@@ -164,15 +164,16 @@
 								<!-- comments -->
 								<div class="col-12">
 									<div class="comments">
-										<ul class="comments__list">
+										<ul id="comments_list" class="comments__list">
 											{% for comment in movie.comments %}
-											<li class="comments__item">
+											<li id="comments_item" class="comments__item">
 												<div class="comments__autor">
 													<img class="comments__avatar" src="{{ asset('assets/img/user.png') }}" alt="">
 													<span class="comments__name">{{ comment.user }}</span>
 													<span class="comments__time">{{ comment.date.format('Y-m-d')}}</span>
 												</div>
 												<p class="comments__text">{{comment.content }}.</p>
+												<!--
 												<div class="comments__actions">
 													<div class="comments__rate">
 														<button type="button"><i class="icon ion-md-thumbs-up"></i>{{comment.likeNumber }}</button>
@@ -180,9 +181,10 @@
 														<button type="button">{{comment.dislikeNumber }}<i class="icon ion-md-thumbs-down"></i></button>
 													</div>
 												</div>
+											-->
 											</li>
 											{% else %}
-											<li class="comments__item">
+											<li id="no_comment" class="comments__item">
 												<div class="comments__autor">
 													<img class="comments__avatar" src="{{ asset('assets/img/user.png') }}" alt="">
 													<span class="comments__name">No comment</span>
@@ -193,9 +195,9 @@
 											{% endfor %}
 										</ul>
 
-										<form method="POST" action="{{ path('movie', {'id':movie.id}) }}" class="form">
-											<textarea id="comment" required name="comment" class="form__textarea" placeholder="Add comment"></textarea>
-											<button type="submit" class="form__btn">comment</button>
+										<form method="POST"  class="form">
+											<textarea id="movie_comment_content" required name="comment" class="form__textarea" placeholder="Add comment"></textarea>
+											<button type="button" class="form__btn" onclick="controlComments()">comment</button>
 										</form>
 									</div>
 								</div>
