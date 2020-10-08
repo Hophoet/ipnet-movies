@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
-class MovieController extends AbstractController
+class MainController extends AbstractController
 {
     /**
      * @Route("/", name="movies")
@@ -41,7 +41,7 @@ class MovieController extends AbstractController
        
         
     
-        return $this->render('movie/index.html.twig', [
+        return $this->render('main/index.html.twig', [
             'movies' => $movies,
         ]);
     }
@@ -53,7 +53,7 @@ class MovieController extends AbstractController
         //ge the movie
         $movie = $this->getDoctrine()->getRepository('App:Movie')->find($id);
         if($movie == null){
-            return $this->render('movie/404.html.twig', []);
+            return $this->render('main/404.html.twig', []);
         }
         //get current user
         $user = $this->getUser();
@@ -97,7 +97,7 @@ class MovieController extends AbstractController
         //$methods = get_class_methods($movie->getReleaseDate()) ;
         $releaseDate = $movie->getReleaseDate()->format('Y-m-d');
 
-        return $this->render('movie/movie.html.twig', [
+        return $this->render('main/movie.html.twig', [
             'movie' => $movie,
             'releaseDate' => $releaseDate,
         ]);
@@ -112,7 +112,7 @@ class MovieController extends AbstractController
         if($query){
             $searchMovies =  $this->getDoctrine()->getRepository('App:Movie')->findBy(['title'=>$query]);
             if($searchMovies){
-                return $this->render('movie/search.html.twig', ['searchMovies' => $searchMovies]);
+                return $this->render('main/search.html.twig', ['searchMovies' => $searchMovies]);
             }
             else{
                //movies not found with the query
@@ -123,7 +123,7 @@ class MovieController extends AbstractController
             //query not send 
         }
 
-        return $this->render('movie/404.html.twig', []);
+        return $this->render('main/404.html.twig', []);
         
     }
 
@@ -174,7 +174,7 @@ class MovieController extends AbstractController
         }
 
         return $this->render(
-            'movies_admin/create-movie.html.twig',
+            'main/create-movie.html.twig',
             array('form' => $form->createView() )
         );
 
