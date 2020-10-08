@@ -64,3 +64,6 @@ FlixGo-Online-Movies-Template/
 
 # Embedded web-server pid file
 /.web-server-pid
+
+#admin temple
+/public/admin/
