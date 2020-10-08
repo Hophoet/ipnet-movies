@@ -1,0 +1,125 @@
+{% extends 'movie/base.html.twig' %}
+
+{% block title %}Movie{% endblock %}
+
+{% block body %}
+    <h1>Movie</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ movie.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ movie.title }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ movie.image }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ movie.description }}</td>
+            </tr>
+            <tr>
+                <th>VoteAverage</th>
+                <td>{{ movie.voteAverage }}</td>
+            </tr>
+            <tr>
+                <th>RunningTime</th>
+                <td>{{ movie.runningTime }}</td>
+            </tr>
+            <tr>
+                <th>ReleaseDate</th>
+                <td>{{ movie.releaseDate ? movie.releaseDate|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('movie_index') }}">back to list</a>
+
+    <a href="{{ path('movie_edit', {'id': movie.id}) }}">edit</a>
+
+    {{ include('movie/_delete_form.html.twig') }}
+{% endblock %}
+
+
+{% block content %}
+<!-- Main content -->
+<section class="content">
+  <div class="card">
+    <div class="card-header">
+      <div class="d-flex justify-content-between">
+        <h3 class="card-title">{{ movie.title }}</h3>
+        
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a href="{{ path('movie_show', {'id':movie.id}) }}"  class="btn btn-primary">
+                <i class="fas fa-eye"></i>
+            </a>
+            <a href="{{ path('movie_edit', {'id':movie.id}) }}" class="btn btn-warning">
+                <i class="fas fa-edit"></i>
+            </a>
+            <a href="{{ path('movie_delete', {'id':movie.id}) }}" class="btn btn-danger">
+                <i class="fas fa-trash"></i>
+            </a>
+        </div>
+      </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+    <div class="container">
+
+<!--
+      <a type="link" class="btn btn-primary " href="{{path('movie_new')}}">Create article</a><br>
+     <a type="link" class="btn btn-default" href="{{path('movies')}}">buy articles</a><br>-->
+
+      <table class="table table-bordered table-striped" >
+        <thead>
+          <tr>
+          <th>Id</th>
+                <th>Image</th>
+                <th>Description</th>
+                <th>VoteAverage</th>
+                <th>RunningTime</th>
+                <th>ReleaseDate</th>
+      
+
+          </tr>
+        </thead>
+        <tbody>
+
+   
+
+              <tr>
+                <td>{{ movie.id }}</td>
+                <td>
+                 {% if movie.image %}
+			        <img src="{{ '/movies/' ~ movie.image }}" alt="{{movie.title}}">
+				{% else %}
+					<img src="{{ asset('assets/img/covers/cover.jpg') }}" alt="{{movie.title}}">
+				{% endif %}
+                </td>
+                <td>{{ movie.description }}</td>
+                <td>{{ movie.voteAverage }}</td>
+                <td>{{ movie.runningTime }}</td>
+                <td>{{ movie.releaseDate ? movie.releaseDate|date('Y-m-d') : '' }}</td>
+
+           
+              </tr>
+
+
+        </tbody>
+      </table>
+
+    </div>
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+</section>
+<!-- /.content -->
+
+
+{% endblock %}

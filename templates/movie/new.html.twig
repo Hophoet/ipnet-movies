@@ -1,0 +1,24 @@
+{% extends 'movie/base.html.twig' %}
+
+{% block title %}New Movie{% endblock %}
+
+{% block content %}
+    <!-- Main content -->
+<section class="content">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Add new movie</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <div class="container">
+      {{ include('movie/_form.html.twig') }}
+      </div>
+    </div>
+  <!-- /.card-body -->
+</div>
+<!-- /.card -->
+</section>
+{% endblock %}
+
+

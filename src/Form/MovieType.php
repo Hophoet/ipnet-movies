@@ -8,6 +8,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,22 +22,53 @@ class MovieType extends AbstractType
             ->add('title', TextType::class, [
                 'attr' => [ 
                     'placeholder' => 'Enter the movie title',
-                    'class' => 'sign_input',
+                    'class' => 'form-control',
                     'name' => 'title'
             
                 ]
             ])
             ->add('image', FileType::class, [
+                'data_class' => null,
                 'attr' => [ 
                     'label' => 'Please upload a file',
-                    'class' => 'sign_input',
+                    'class' => 'form-control',
                     'mapped' => false,
                 ]
             ])
-            ->add('description')
-            ->add('voteAverage')
-            ->add('runningTime')
-            ->add('releaseDate')
+            ->add('description', TextareaType::class, [
+                'attr' => [ 
+                    'placeholder' => 'Enter the movie description',
+                    'class' => 'form-control',
+                    'name' => 'description'
+            
+                ]
+            ])
+            ->add('voteAverage', NumberType::class, [
+                'attr' => [ 
+                    'placeholder' => 'Enter the movie vote average',
+                    'class' => 'form-control',
+                    'name' => 'vote_average'
+            
+                ]
+            ])
+            ->add('runningTime', NumberType::class, [
+                'attr' => [ 
+                    'placeholder' => 'Enter the movie running time',
+                    'class' => 'form-control',
+                    'name' => 'running_time',
+                    'type' => 'number',
+            
+                ]
+            ])
+            ->add('releaseDate', DateType::class, [
+                'attr' => [ 
+                    'placeholder' => 'Enter the movie running time',
+                    'class' => 'form-control',
+                    'name' => 'running_time',
+                    'type' => 'number',
+            
+                ]
+            ])
            // ->add('genres', ChoiceType::class, [])
         ;
     }
