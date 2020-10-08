@@ -20,7 +20,8 @@ class MovieType extends AbstractType
                 'attr' => [ 
                     'placeholder' => 'Enter the movie title',
                     'class' => 'sign_input',
-                    'name' => 'title',
+                    'name' => 'title'
+            
                 ]
             ])
             ->add('image', FileType::class, [
